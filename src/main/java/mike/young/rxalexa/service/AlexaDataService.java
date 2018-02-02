@@ -23,7 +23,6 @@ public class AlexaDataService {
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = builderFactory.newDocumentBuilder();
             Document xmlDocument = builder.parse(fileIS);
-            System.out.println(xmlDocument.getXmlVersion());
 
             XPath xPath = XPathFactory.newInstance().newXPath();
             String expression = "//*[local-name()='DataUrl']/text()";
