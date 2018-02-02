@@ -21,11 +21,10 @@ public class AlexaSites {
     private static AlexaDataService alexaDataService;
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
-        System.out.println("hello");
         alexaDataService = new AlexaDataService();
 
         Observable<FullSite> allSites = alexaDataService.findAllSites()
-                .flatMap(url -> fillSiteData(url));
+                .flatMap(AlexaSites::fillSiteData);
 
         findAverageWordCount(allSites).subscribe(count -> {
             System.out.println("Average word count: " + count);
@@ -82,21 +81,20 @@ public class AlexaSites {
 
     public static Observable<Integer> findAverageWordCount(Observable<FullSite> allSites){
         Observable<Integer> wordCountObv = allSites
-                .map(fullSite -> fullSite.getWordCount());
+                .map(FullSite::getWordCount);
 
         return MathObservable.from(wordCountObv).averageInteger(i -> i);
     }
 
     public static Observable<Count> findTopHeaders(Observable<FullSite> allSites){
-        Observable<Count> headers = allSites
-                .map(site -> site.getHeaders())
+
+        return allSites
+                .map(FullSite::getHeaders)
                 .flatMapIterable(header -> header)
-                .groupBy(str -> str.toLowerCase())
+                .groupBy(String::toLowerCase)
                 .flatMap(
                         gr -> gr.count()
                         .map(count -> new Count(gr.getKey(), count))
                 );
-
-        return headers;
     }
 }

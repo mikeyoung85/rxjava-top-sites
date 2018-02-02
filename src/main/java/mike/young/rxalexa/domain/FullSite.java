@@ -10,12 +10,6 @@ public class FullSite {
     private List<String> headers;
     private String content;
 
-    public FullSite(String url) throws MalformedURLException {
-        this.url = new URL("http://" + url);
-        this.headers = new ArrayList<>();
-        this.content = "";
-    }
-
     public FullSite(String urlStr, String content, List<String> headers) throws MalformedURLException {
         this.url = new URL(urlStr);
         this.headers = headers;

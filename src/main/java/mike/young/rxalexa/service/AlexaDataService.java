@@ -27,10 +27,9 @@ public class AlexaDataService {
 
             XPath xPath = XPathFactory.newInstance().newXPath();
             String expression = "//*[local-name()='DataUrl']/text()";
-            System.out.println("Expression: "+ expression);
+//            System.out.println("Expression: "+ expression);
             NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
-            System.out.println("got nodes");
-            System.out.println(nodeList.getLength());
+            System.out.println("Found nodes: " + nodeList.getLength());
 
             List<String> urlList = new ArrayList<String>();
             for(int i = 0; i < nodeList.getLength(); i++){
