@@ -69,7 +69,7 @@ public class AlexaSites {
 
             return Observable.just(new FullSite(url.toExternalForm(), content, headers));
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             return Observable.empty();
         }
         finally {
